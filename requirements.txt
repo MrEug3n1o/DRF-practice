@@ -1,5 +1,5 @@
 asgiref==3.11.0
-Django
+Django~=6.0
 djangorestframework==3.16.1
 sqlparse==0.5.4
 flake8
@@ -11,3 +11,5 @@ djangorestframework-simplejwt
 drf-spectacular
 Pillow
 psycopg2-binary
+asyncio~=4.0.0
+python-telegram-bot~=21.10
