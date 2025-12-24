@@ -2,16 +2,17 @@ from django.db import models
 from borrowing.models import Borrowing
 
 class Payment(models.Model):
-    PENDING = "PENDING"
-    PAID = "PAID"
-    PAYMENT = "PAYMENT"
-    FINE = "FINE"
 
-    STATUS_CHOICES = [(PENDING, "Pending"), (PAID, "Paid")]
-    TYPE_CHOICES = [(PAYMENT, "Payment"), (FINE, "Fine")]
+    class PayStatus(models.TextChoices):
+        PENDING = ("PENDING", )
+        PAID = ("PAID", )
 
-    status = models.CharField(max_length=7, choices=STATUS_CHOICES)
-    type = models.CharField(max_length=7, choices=TYPE_CHOICES)
+    class PayType(models.TextChoices):
+        PAYMENT = ("PAYMENT", )
+        FINE = ("FINE", )
+
+    status = models.CharField(max_length=7, choices=PayStatus, default=PayStatus.PENDING)
+    type = models.CharField(max_length=7, choices=PayType, default=PayType.PAYMENT)
     borrowing = models.ForeignKey(Borrowing, on_delete=models.CASCADE)
 
     session_url = models.URLField()
