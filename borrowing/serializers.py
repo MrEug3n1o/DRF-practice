@@ -27,7 +27,9 @@ class BorrowingSerializer(serializers.ModelSerializer):
 
 class BorrowingBookDetailSerializer(serializers.ModelSerializer):
     book = BookSerializer(many=False, read_only=True)
-
+    user = serializers.SlugRelatedField(
+        queryset=User.objects.all(), slug_field="email"
+    )
     class Meta:
         model = Borrowing
         fields = (
@@ -38,3 +40,28 @@ class BorrowingBookDetailSerializer(serializers.ModelSerializer):
             "book",
             "user"
         )
+
+
+class BorrowingCreateSerializer(serializers.ModelSerializer):
+    book = serializers.SlugRelatedField(
+        queryset=Book.objects.all(), slug_field="title"
+    )
+    user = serializers.SlugRelatedField(
+        queryset=User.objects.all(), slug_field="email"
+    )
+    class Meta:
+        model = Borrowing
+        fields = (
+            "id",
+            "book",
+            "expected_return_date",
+            "user",
+        )
+
+    def validate(self, attrs):
+        user = attrs["user"]
+        returned_books = Borrowing.objects.filter(user=user, actual_return_date__isnull=True)
+
+        if returned_books.exists():
+            raise serializers.ValidationError("RETURN BOOKS")
+        return attrs
