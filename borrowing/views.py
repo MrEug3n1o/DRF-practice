@@ -37,7 +37,7 @@ class BorrowingViewSet(
             with transaction.atomic():
                 book = serializer.validated_data["book"]
                 if book.inventory <= 0:
-                    raise serializers.ValidationError()
+                    raise serializers.ValidationError("No books left")
                 book.inventory -= 1
                 book.save()
                 serializer.save()
