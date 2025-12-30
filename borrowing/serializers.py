@@ -24,6 +24,9 @@ class BorrowingSerializer(serializers.ModelSerializer):
             "user"
         )
 
+    def get_is_active(self, obj):
+        return obj.actual_return_date is None
+
 
 class BorrowingBookDetailSerializer(serializers.ModelSerializer):
     book = BookSerializer(many=False, read_only=True)
