@@ -1,6 +1,7 @@
 # Library API Service
 
-API service for airplane ticket booking and management written using Django REST Framework.
+This project is a **Library Management REST API** built with **Django** and **Django REST Framework**.  
+It allows users to browse books, borrow them, return them, and pay for borrowings, while administrators manage the library inventory and monitor user activity.
 
 ---
 
@@ -25,8 +26,8 @@ API service for airplane ticket booking and management written using Django REST
 
 ### Clone and set up the project
 
-- git clone https://github.com/MrEug3n1o/API-service-for-airport.git
-- cd API-service-for-airport 
+- git clone https://github.com/MrEug3n1o/DRF-practice.git
+- cd DRF-practice
 - python -m venv venv 
 - source venv/bin/activate (windows: venv\Scripts\activate)
 - pip install -r requirements.txt
